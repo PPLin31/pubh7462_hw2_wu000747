@@ -59,6 +59,7 @@ six_observed_state <- overall_health %>%
   mutate(location_observed = length(unique(County)))%>%
   filter(location_observed == 6)
 ##There are only two counties: Adams and Arapaheo
+
 ```
 
 #Problem 3.3.2
@@ -66,13 +67,11 @@ six_observed_state <- overall_health %>%
 ```{r, echo = TRUE}
 
 overall_health %>%
-  knitr::kable(caption = "")%>%
   group_by(State, Year) %>%
-  summarize(location_observed = length(unique(County))) #%>%
-#  summarize(mean_observed = mean(location_observed)) 
-# %>%
-#  ggplot(aes(x = Year, y = location_observed, group = #State, colour=State, legend = 'State')) + geom_line()
-  
+  summarize(location_observed =length(unique(County))) %>%
+# summarize(mean_observed = mean(location_observed)) %>%
+ggplot(aes(x = Year, y = location_observed, group = State, colour=State, legend = 'State')) + geom_line()+ ylab('Observation')
+
 
 ```
 
