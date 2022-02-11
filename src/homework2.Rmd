@@ -1,0 +1,64 @@
+---
+title: "Homework 2"
+author: "Haolin Wu"
+date: "2/10/2022"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+set.seed(7462)
+library(tidyverse)
+library(forcats)
+library(dplyr)
+library(data.table)
+library(gt)
+knitr::opts_chunk$set(echo = TRUE)
+#df %>% gt() %>% tab_header("")
+```
+
+## Question 3
+##Problem 3.1
+
+```{r echo=TRUE}
+#Read the data
+#data <- read.csv(file.choose(), header=TRUE)
+data <- as_tibble(data)
+##Clean the data and select the variables
+overall_health <- data %>% 
+  filter(Topic == 'Overall Health') %>%
+  mutate(Locationdesc = factor(Locationdesc),
+         County = substring(Locationdesc, 5))%>%
+rename(State = Locationabbr, Prop_response = Data_value)%>%
+  select(Year, State, County, Prop_response, Response, Sample_Size)%>%
+  mutate(Year = factor(Year),
+         State = factor(State),
+         Prop_response = factor(Prop_response),
+         Response = factor(Response),
+         County = factor(County),
+         Sample_Size = factor(Sample_Size))
+```
+##Problem 3.2
+```{r echo=TRUE}
+#Number of Variables:
+n.variables <- ncol(overall_health) ## 6
+#Number of Observations:
+n.observation <- nrow(overall_health) ##10625
+
+```
+
+## Problem 3.3
+# Problem 3.3.1
+
+```{r, echo=TRUE}
+six_observed_state <- overall_health %>%
+  filter(Year == 2004) %>%
+  group_by(State) %>%
+  mutate(location_observed = length(unique(County)))%>%
+  filter(location_observed == 6)
+##There are only two counties: Adams and Arapaheo
+```
+
+
+
+
+
