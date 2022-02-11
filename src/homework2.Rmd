@@ -10,8 +10,11 @@ set.seed(7462)
 library(tidyverse)
 library(forcats)
 library(dplyr)
+#install.packages('ggrepel')
+library(ggrepel)
 library(data.table)
 library(gt)
+library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 #df %>% gt() %>% tab_header("")
 ```
@@ -19,9 +22,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Question 3
 ##Problem 3.1
 
-```{r echo=TRUE}
+```{r echo=TRUE }
 #Read the data
-#data <- read.csv(file.choose(), header=TRUE)
+data <- read.csv(file.choose(), header=TRUE)
 data <- as_tibble(data)
 ##Clean the data and select the variables
 overall_health <- data %>% 
@@ -58,6 +61,20 @@ six_observed_state <- overall_health %>%
 ##There are only two counties: Adams and Arapaheo
 ```
 
+#Problem 3.3.2
+
+```{r, echo = TRUE}
+
+overall_health %>%
+  knitr::kable(caption = "")%>%
+  group_by(State, Year) %>%
+  summarize(location_observed = length(unique(County))) #%>%
+#  summarize(mean_observed = mean(location_observed)) 
+# %>%
+#  ggplot(aes(x = Year, y = location_observed, group = #State, colour=State, legend = 'State')) + geom_line()
+  
+
+```
 
 
 
